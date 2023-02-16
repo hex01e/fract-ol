@@ -6,98 +6,56 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 01:41:14 by houmanso          #+#    #+#             */
-/*   Updated: 2023/02/09 23:14:50 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/02/15 19:06:06 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int		key_event(int code, t_mlx_data *data)
+static int	key_event(int code, t_mlx_data *data)
 {
 	if (code == 1)
 	{
-		data->x_ = 0;
-		data->y_ = 0;
 		data->zoom = 1;
-		mlx_destroy_image(data->mlx, data->img);
-		mlx_clear_window(data->mlx, data->mlx_win);
-		data->img = mlx_new_image(data->mlx, HEIGHT, WIDTH);
-		julia(data);
+		redraw(data, julia);
 	}
-	else if (code == 123)
+	else if (code == 53)
+		on_destroy(data);
+	else if (code == 15)
 	{
-		data->x_ -= 0.2/ data->zoom ;
-		mlx_destroy_image(data->mlx, data->img);
-		mlx_clear_window(data->mlx, data->mlx_win);
-		data->img = mlx_new_image(data->mlx, HEIGHT, WIDTH);
-		julia(data);
-	}
-	else if (code == 124)
-	{
-		data->x_ += 0.2/ data->zoom;
-		mlx_destroy_image(data->mlx, data->img);
-		mlx_clear_window(data->mlx, data->mlx_win);
-		data->img = mlx_new_image(data->mlx, HEIGHT, WIDTH);
-		julia(data);
-	}
-	else if (code == 125)
-	{
-		data->y_ += 0.2/ data->zoom;
-		mlx_destroy_image(data->mlx, data->img);
-		mlx_clear_window(data->mlx, data->mlx_win);
-		data->img = mlx_new_image(data->mlx, HEIGHT, WIDTH);
-		julia(data);
-	}
-	else if (code == 126)
-	{
-		data->y_ -= 0.2/ data->zoom;
-		mlx_destroy_image(data->mlx, data->img);
-		mlx_clear_window(data->mlx, data->mlx_win);
-		data->img = mlx_new_image(data->mlx, HEIGHT, WIDTH);
-		julia(data);
+		data->zoom = 1;
+		redraw(data, julia);
 	}
 	return (1);
 }
 
-int		mouse_event(int code, int x, int y, t_mlx_data *data)
+static int	mouse_event(int code, int x, int y, t_mlx_data *data)
 {
-	double	temp_x;
-	double	temp_y;
-
 	if (code == 1)
 	{
-		data->x = get_coord(x, WIDTH, data) + data->x_;
-		data->y = get_coord(y, HEIGHT, data) + data->y_;
-		mlx_destroy_image(data->mlx, data->img);
-		mlx_clear_window(data->mlx, data->mlx_win);
-		data->img = mlx_new_image(data->mlx, HEIGHT, WIDTH);
-		julia(data);
+		data->x = get_coord(x, WIDTH, data);
+		data->y = get_coord(y, HEIGHT, data);
+		redraw(data, julia);
 	}
 	else if (code == 4)
 	{
-		temp_x = get_coord(x, WIDTH, data);
-		temp_y = get_coord(y, WIDTH, data);
 		data->zoom *= 1.2;
-		data->x_ += (temp_x - get_coord(x, WIDTH, data));
-		data->y_ += (temp_y - get_coord(y, WIDTH, data));
-		mlx_destroy_image(data->mlx, data->img);
-		mlx_clear_window(data->mlx, data->mlx_win);
-		data->img = mlx_new_image(data->mlx, HEIGHT, WIDTH);
-		julia(data);
+		redraw(data, julia);
 	}
 	else if (code == 5)
 	{
-		temp_x = get_coord(x, WIDTH, data);
-		temp_y = get_coord(y, WIDTH, data);
 		data->zoom /= 1.2;
-		data->x_ += (temp_x - get_coord(x, WIDTH, data));
-		data->y_ += (temp_y - get_coord(y, WIDTH, data));
-		mlx_destroy_image(data->mlx, data->img);
-		mlx_clear_window(data->mlx, data->mlx_win);
-		data->img = mlx_new_image(data->mlx, HEIGHT, WIDTH);
-		julia(data);
+		redraw(data, julia);
 	}
 	 return (1);
+}
+
+void	catch_events(t_mlx_data *mlx_data)
+{
+	mlx_put_image_to_window(mlx_data->mlx, mlx_data->mlx_win, mlx_data->img, 0, 0);
+	mlx_hook(mlx_data->mlx_win, 17, 0, on_destroy,mlx_data);
+	mlx_mouse_hook(mlx_data->mlx_win, mouse_event, mlx_data);
+	mlx_key_hook(mlx_data->mlx_win, key_event, mlx_data);
 }
 
 void	julia(t_mlx_data *mlx_data)
@@ -114,8 +72,8 @@ void	julia(t_mlx_data *mlx_data)
 		d.w= 0;
 		while (d.w < WIDTH)
 		{
-			mlx_data->z.re = get_coord(d.w , WIDTH, mlx_data) + mlx_data->x_;
-			mlx_data->z.im = get_coord(d.h , HEIGHT, mlx_data) + mlx_data->y_;
+			mlx_data->z.re = get_coord(d.w , WIDTH, mlx_data);
+			mlx_data->z.im = get_coord(d.h , HEIGHT, mlx_data);
 			iter = 0;
 			while (mlx_data->z.re * mlx_data->z.re + mlx_data->z.im * mlx_data->z.im <= 4 && iter <= ITER_MAX)
 			{
@@ -124,12 +82,10 @@ void	julia(t_mlx_data *mlx_data)
 				mlx_data->z.re = temp;
 				iter++;
 			}
-			draw(mlx_data->z, d, iter, *mlx_data);
+			draw(mlx_data->z, d, iter, mlx_data);
 			d.w++;
 		}
 		d.h++;
 	}
-	mlx_put_image_to_window(mlx_data->mlx, mlx_data->mlx_win, mlx_data->img, 0, 0);
-	mlx_mouse_hook(mlx_data->mlx_win, mouse_event, mlx_data);
-	mlx_key_hook(mlx_data->mlx_win, key_event, mlx_data);
+	catch_events(mlx_data);
 }

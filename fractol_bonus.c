@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.c                                          :+:      :+:    :+:   */
+/*   fractol_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/20 14:42:32 by houmanso          #+#    #+#             */
-/*   Updated: 2023/02/12 19:09:34 by houmanso         ###   ########.fr       */
+/*   Created: 2023/02/12 16:22:38 by houmanso          #+#    #+#             */
+/*   Updated: 2023/02/15 19:13:43 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "fractol_bonus.h"
 
 void	ft_args_err(void)
 {
@@ -28,8 +28,11 @@ void	setup(t_mlx_data *data)
 	
 	img = &data->img_data;
 	data->zoom = 1;
+	data->color = 0xff;
 	data->x = -0.85;
 	data->y = -0.20;
+	data->x_ = 0;
+	data->y_ = 0;
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		exit(1);
@@ -46,6 +49,8 @@ void	get_started(t_mlx_data *mlx_data, int flag)
 		mandelbrot(mlx_data);
 	else if (flag == JULIA)
 		julia(mlx_data);
+	else if (flag == MENDEL3)
+		mandel3(mlx_data);
 }
 
 int	main(int argc, char const *argv[])
@@ -60,6 +65,8 @@ int	main(int argc, char const *argv[])
 			get_started(&mlx_data, MANDELBROT);
 		else if (!ft_strncmp("julia", argv[1], len) && len == 5)
 			get_started(&mlx_data, JULIA);
+		else if (!ft_strncmp("mandel3", argv[1], len) && len == 7)
+			get_started(&mlx_data, MENDEL3);
 		else
 			ft_args_err();
 		mlx_loop(mlx_data.mlx);

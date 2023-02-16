@@ -1,14 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.h                                          :+:      :+:    :+:   */
+/*   fractol_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/20 14:43:23 by houmanso          #+#    #+#             */
-/*   Updated: 2023/02/15 19:05:56 by houmanso         ###   ########.fr       */
+/*   Created: 2023/02/12 16:22:15 by houmanso          #+#    #+#             */
+/*   Updated: 2023/02/15 19:07:06 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
@@ -19,11 +20,12 @@
 # include <string.h>
 # include "./libft/libft.h"
 
-# define ITER_MAX 120
+# define ITER_MAX 100
 # define HEIGHT 800.0
 # define WIDTH 800.0
 # define MANDELBROT 1
 # define JULIA 2
+# define MENDEL3 3
 
 typedef struct s_complex
 {
@@ -51,18 +53,24 @@ typedef struct s_mlx_data
 	char		*buffer;
 	void		*mlx_win;
 	double		zoom;
+	int			color;
 	double		x;
 	double		y;
+	double		x_;
+	double		y_;
 	t_img_data	img_data;
-	t_complex	c;
-	t_complex	z;
 }	t_mlx_data;
 
-void	julia(t_mlx_data *mlx_data);
 int		on_destroy(t_mlx_data *data);
-void	redraw(t_mlx_data *data, void fractol(t_mlx_data *));
-void	mandelbrot(t_mlx_data *mlx_data);
 double	get_coord(int p, double of, t_mlx_data *data);
+void	redraw(t_mlx_data *data, void fractol(t_mlx_data *));
 void	draw(t_complex z, t_win_d d, int iter, t_mlx_data *mlx_data);
+
+void	julia_iter_loop(t_mlx_data *mlx_data, t_win_d *d, t_complex *c);
+void	julia(t_mlx_data *mlx_data);
+
+void	mandelbrot(t_mlx_data *mlx_data);
+
+void	mandel3(t_mlx_data *mlx_data);
 
 #endif
