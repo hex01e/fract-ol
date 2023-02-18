@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 16:22:15 by houmanso          #+#    #+#             */
-/*   Updated: 2023/02/15 19:07:06 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/02/18 19:19:31 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <string.h>
 # include "./libft/libft.h"
 
-# define ITER_MAX 100
+# define ITER_MAX 255
 # define HEIGHT 800.0
 # define WIDTH 800.0
 # define MANDELBROT 1
@@ -33,13 +33,6 @@ typedef struct s_complex
 	double	im;
 }	t_complex;
 
-typedef struct s_img_data
-{
-	int	pixel_bits;
-	int	line_bytes;
-	int	endian;
-}	t_img_data;
-
 typedef struct s_win_d
 {
 	int	w;
@@ -50,15 +43,17 @@ typedef struct s_mlx_data
 {
 	void		*mlx;
 	void		*img;
-	char		*buffer;
 	void		*mlx_win;
-	double		zoom;
+	int			*buffer;
 	int			color;
+	int			pixel_bits;
+	int			line_bytes;
+	int			endian;
+	double		zoom;
 	double		x;
 	double		y;
 	double		x_;
 	double		y_;
-	t_img_data	img_data;
 }	t_mlx_data;
 
 int		on_destroy(t_mlx_data *data);
