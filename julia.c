@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 01:41:14 by houmanso          #+#    #+#             */
-/*   Updated: 2023/02/28 15:09:48 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/03/01 23:22:16 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,12 @@ static int	mouse_event(int code, int x, int y, t_mlx_data *data)
 		data->zoom /= 1.2;
 		redraw(data, julia);
 	}
-	 return (1);
+	return (1);
 }
 
-void	catch_events(t_mlx_data *mlx_data)
+static void	catch_events(t_mlx_data *mlx_data)
 {
-	mlx_put_image_to_window(mlx_data->mlx, mlx_data->mlx_win, mlx_data->img, 0, 0);
-	mlx_hook(mlx_data->mlx_win, 17, 0, on_destroy,mlx_data);
+	mlx_hook(mlx_data->mlx_win, 17, 0, on_destroy, mlx_data);
 	mlx_mouse_hook(mlx_data->mlx_win, mouse_event, mlx_data);
 	mlx_key_hook(mlx_data->mlx_win, key_event, mlx_data);
 }
@@ -61,31 +60,19 @@ void	catch_events(t_mlx_data *mlx_data)
 void	julia(t_mlx_data *mlx_data)
 {
 	t_win_d		d;
-	int			iter;
-	double		temp;
+	t_complex	c;
 
 	d.h = 0;
-	mlx_data->c.im = mlx_data->y;
-	mlx_data->c.re = mlx_data->x;
+	c.im = mlx_data->y;
+	c.re = mlx_data->x;
 	while (d.h < HEIGHT)
 	{
-		d.w= 0;
+		d.w = 0;
 		while (d.w < WIDTH)
-		{
-			mlx_data->z.re = get_coord(d.w , WIDTH, mlx_data);
-			mlx_data->z.im = get_coord(d.h , HEIGHT, mlx_data);
-			iter = 0;
-			while (mlx_data->z.re * mlx_data->z.re + mlx_data->z.im * mlx_data->z.im <= 4 && iter <= ITER_MAX)
-			{
-				temp = mlx_data->z.re * mlx_data->z.re - mlx_data->z.im * mlx_data->z.im + mlx_data->c.re;
-				mlx_data->z.im = 2 * mlx_data->z.re * mlx_data->z.im + mlx_data->c.im;
-				mlx_data->z.re = temp;
-				iter++;
-			}
-			draw(d, iter, mlx_data);
-			d.w++;
-		}
+			julia_iter_loop(&d, c, mlx_data);
 		d.h++;
 	}
+	mlx_put_image_to_window(mlx_data->mlx, mlx_data->mlx_win, mlx_data->img,
+		0, 0);
 	catch_events(mlx_data);
 }

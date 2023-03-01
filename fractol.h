@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 14:43:23 by houmanso          #+#    #+#             */
-/*   Updated: 2023/02/28 15:11:24 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/03/01 21:55:10 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <string.h>
 # include "./libft/libft.h"
 
-# define ITER_MAX 120
 # define HEIGHT 800.0
 # define WIDTH 800.0
 # define MANDELBROT 1
@@ -30,7 +29,6 @@ typedef struct s_complex
 	double	re;
 	double	im;
 }	t_complex;
-
 
 typedef struct s_win_d
 {
@@ -47,6 +45,7 @@ typedef struct s_mlx_data
 	double		zoom;
 	double		x;
 	double		y;
+	int			max;
 	int			pixel_bits;
 	int			line_bytes;
 	int			endian;
@@ -54,11 +53,15 @@ typedef struct s_mlx_data
 	t_complex	z;
 }	t_mlx_data;
 
-void	julia(t_mlx_data *mlx_data);
 int		on_destroy(t_mlx_data *data);
-void	redraw(t_mlx_data *data, void fractol(t_mlx_data *));
-void	mandelbrot(t_mlx_data *mlx_data);
 double	get_coord(int p, double of, t_mlx_data *data);
 void	draw(t_win_d d, int iter, t_mlx_data *mlx_data);
+void	redraw(t_mlx_data *data, void fractol(t_mlx_data *));
+
+void	julia(t_mlx_data *mlx_data);
+void	julia_iter_loop(t_win_d *d, t_complex c, t_mlx_data *mlx_data);
+
+void	mandelbrot(t_mlx_data *mlx_data);
+void	mandelbrot_iter_loop(t_win_d *d, t_mlx_data *mlx_data);
 
 #endif

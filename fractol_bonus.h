@@ -6,12 +6,12 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 16:22:15 by houmanso          #+#    #+#             */
-/*   Updated: 2023/03/01 01:49:41 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/03/01 17:08:36 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_BONUS_H
-# define FRACTO_BONUSL_H
+# define FRACTOL_BONUS_H
 
 # include <mlx.h>
 # include <math.h>

@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 01:40:23 by houmanso          #+#    #+#             */
-/*   Updated: 2023/03/01 01:49:56 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/03/01 18:05:58 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ void	mandel3_key_extra_events(int code, t_mlx_data *data)
 		redraw(data, mandel3);
 	}
 	else
+	{
 		data->color = code;
+		redraw(data, mandel3);
+	}
 }
 
 void	mandel3_mouse_extra_events(int code, int x, int y, t_mlx_data *data)

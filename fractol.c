@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 14:42:32 by houmanso          #+#    #+#             */
-/*   Updated: 2023/02/28 15:11:04 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/03/01 21:40:40 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_args_err(void)
 
 void	setup(t_mlx_data *data)
 {
+	data->max = 100;
 	data->zoom = 1;
 	data->x = -0.85;
 	data->y = -0.20;
@@ -37,8 +38,8 @@ void	setup(t_mlx_data *data)
 		free(data->mlx);
 		exit(1);
 	}
-	data->buffer = (int *) mlx_get_data_addr(data->img, &data->pixel_bits, &data->line_bytes
-		, &data->endian);
+	data->buffer = (int *) mlx_get_data_addr(data->img, &data->pixel_bits,
+			&data->line_bytes, &data->endian);
 }
 
 void	get_started(t_mlx_data *mlx_data, int flag)

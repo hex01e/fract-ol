@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 20:45:47 by houmanso          #+#    #+#             */
-/*   Updated: 2023/03/01 01:37:34 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/03/01 18:05:48 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ void	julia_key_extra_events(int code, t_mlx_data *data)
 		redraw(data, julia);
 	}
 	else
+	{
 		data->color = code;
+		redraw(data, julia);
+	}
 }
 
 void	julia_mouse_extra_events(int code, int x, int y, t_mlx_data *data)

@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 16:24:11 by houmanso          #+#    #+#             */
-/*   Updated: 2023/02/28 23:12:42 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/03/01 18:04:07 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ static void	events_handler(t_mlx_data *mlx_data)
 void	mandelbrot(t_mlx_data *mlx_data)
 {
 	t_win_d		d;
-	double		temp;
-	int			iter;
 
 	d.h = 0;
 	while (d.h < HEIGHT)
