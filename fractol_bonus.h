@@ -6,13 +6,12 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 16:22:15 by houmanso          #+#    #+#             */
-/*   Updated: 2023/02/18 19:19:31 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/03/01 01:49:41 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#ifndef FRACTOL_H
-# define FRACTOL_H
+#ifndef FRACTOL_BONUS_H
+# define FRACTO_BONUSL_H
 
 # include <mlx.h>
 # include <math.h>
@@ -20,7 +19,6 @@
 # include <string.h>
 # include "./libft/libft.h"
 
-# define ITER_MAX 255
 # define HEIGHT 800.0
 # define WIDTH 800.0
 # define MANDELBROT 1
@@ -49,6 +47,7 @@ typedef struct s_mlx_data
 	int			pixel_bits;
 	int			line_bytes;
 	int			endian;
+	int			max;
 	double		zoom;
 	double		x;
 	double		y;
@@ -58,14 +57,22 @@ typedef struct s_mlx_data
 
 int		on_destroy(t_mlx_data *data);
 double	get_coord(int p, double of, t_mlx_data *data);
+void	draw(t_win_d d, int iter, t_mlx_data *mlx_data);
 void	redraw(t_mlx_data *data, void fractol(t_mlx_data *));
-void	draw(t_complex z, t_win_d d, int iter, t_mlx_data *mlx_data);
 
-void	julia_iter_loop(t_mlx_data *mlx_data, t_win_d *d, t_complex *c);
 void	julia(t_mlx_data *mlx_data);
+void	julia_iter_loop(t_mlx_data *mlx_data, t_win_d *d, t_complex *c);
+void	julia_key_extra_events(int code, t_mlx_data *data);
+void	julia_mouse_extra_events(int code, int x, int y, t_mlx_data *data);
 
 void	mandelbrot(t_mlx_data *mlx_data);
+void	mandelbrot_iter_loop(t_win_d *d, t_mlx_data *mlx_data);
+void	mandelbrot_key_extra_events(int code, t_mlx_data *data);
+void	mandelbrot_mouse_extra_events(int code, int x, int y, t_mlx_data *data);
 
 void	mandel3(t_mlx_data *mlx_data);
+void	mandel3_iter_loop(t_win_d *d, t_mlx_data *mlx_data);
+void	mandel3_key_extra_events(int code, t_mlx_data *data);
+void	mandel3_mouse_extra_events(int code, int x, int y, t_mlx_data *data);
 
 #endif

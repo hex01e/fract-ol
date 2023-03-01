@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 01:41:14 by houmanso          #+#    #+#             */
-/*   Updated: 2023/02/15 19:06:06 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/02/28 15:09:48 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	julia(t_mlx_data *mlx_data)
 				mlx_data->z.re = temp;
 				iter++;
 			}
-			draw(mlx_data->z, d, iter, mlx_data);
+			draw(d, iter, mlx_data);
 			d.w++;
 		}
 		d.h++;

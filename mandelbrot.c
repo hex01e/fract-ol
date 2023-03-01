@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 00:03:48 by houmanso          #+#    #+#             */
-/*   Updated: 2023/02/06 11:14:50 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/02/28 15:04:59 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	mandelbrot(t_mlx_data *mlx_data)
 				z.re = temp;
 				iter++;
 			}
-			draw(z, d, iter, *mlx_data);
+			draw(d, iter, mlx_data);
 			d.w++;
 		}
 		d.h++;

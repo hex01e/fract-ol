@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 14:43:23 by houmanso          #+#    #+#             */
-/*   Updated: 2023/02/15 19:05:56 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/02/28 15:11:24 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,6 @@ typedef struct s_complex
 	double	im;
 }	t_complex;
 
-typedef struct s_img_data
-{
-	int	pixel_bits;
-	int	line_bytes;
-	int	endian;
-}	t_img_data;
 
 typedef struct s_win_d
 {
@@ -48,12 +42,14 @@ typedef struct s_mlx_data
 {
 	void		*mlx;
 	void		*img;
-	char		*buffer;
+	int			*buffer;
 	void		*mlx_win;
 	double		zoom;
 	double		x;
 	double		y;
-	t_img_data	img_data;
+	int			pixel_bits;
+	int			line_bytes;
+	int			endian;
 	t_complex	c;
 	t_complex	z;
 }	t_mlx_data;
@@ -63,6 +59,6 @@ int		on_destroy(t_mlx_data *data);
 void	redraw(t_mlx_data *data, void fractol(t_mlx_data *));
 void	mandelbrot(t_mlx_data *mlx_data);
 double	get_coord(int p, double of, t_mlx_data *data);
-void	draw(t_complex z, t_win_d d, int iter, t_mlx_data *mlx_data);
+void	draw(t_win_d d, int iter, t_mlx_data *mlx_data);
 
 #endif

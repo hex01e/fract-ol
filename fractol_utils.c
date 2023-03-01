@@ -6,26 +6,24 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 01:59:17 by houmanso          #+#    #+#             */
-/*   Updated: 2023/02/15 19:04:43 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/02/28 15:05:44 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	draw(t_complex z, t_win_d d, int iter, t_mlx_data *mlx_data)
+void	draw(t_win_d d, int iter, t_mlx_data *data)
 {
-	int	color;
-	int	px;
+	int r;
+	int	g;
+	int	b;
+	double	i;
 
-	px = (d.h * 4 * WIDTH)  + (d.w * 4);
-	color = 0xff - iter * 1024 / ITER_MAX;
-	if (z.re * z.re + z.im * z.im > 4)
-	{
-		mlx_data->buffer[px + 0] = color;
-		mlx_data->buffer[px + 1] = color >> 8;
-		mlx_data->buffer[px + 2] = color >> 16;
-		mlx_data->buffer[px + 3] = color >> 24;
-	}
+	i = (double) iter / ITER_MAX ;
+	r = 8.5 * (1 - i) * i * i * i * 255;
+	g = 14.4 * (1 - i) * (1 - i) * i * i * 255 ;
+	b = 8.5  * (1 - i) * (1 - i) * (1 - i) * i * 255;
+	data->buffer[d.h * data->line_bytes / 4 + d.w] = r << 16 | g << 8 | b;
 }
 
 void	redraw(t_mlx_data *data, void f(t_mlx_data*)){

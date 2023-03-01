@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 16:22:38 by houmanso          #+#    #+#             */
-/*   Updated: 2023/02/18 19:21:44 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/02/28 23:15:10 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	ft_args_err(void)
 void	setup(t_mlx_data *data)
 {
 	data->zoom = 1;
-	data->color = 0xff;
+	data->color = 0;
+	data->max = 100;
 	data->x = -0.85;
 	data->y = -0.20;
 	data->x_ = 0;
@@ -35,8 +36,13 @@ void	setup(t_mlx_data *data)
 		exit(1);
 	data->mlx_win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "Fract-ol");
 	data->img = mlx_new_image(data->mlx, HEIGHT, WIDTH);
-	data->buffer = (int *)mlx_get_data_addr(data->img, &data->pixel_bits, &data->line_bytes
-		, &data->endian);
+	if (!data->img)
+	{
+		free(data->mlx);
+		exit(1);
+	}
+	data->buffer = (int *)mlx_get_data_addr(data->img, &data->pixel_bits,
+			&data->line_bytes, &data->endian);
 }
 
 void	get_started(t_mlx_data *mlx_data, int flag)
