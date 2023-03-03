@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 14:42:32 by houmanso          #+#    #+#             */
-/*   Updated: 2023/03/01 21:40:40 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/03/03 14:57:59 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	ft_args_err(void)
 {
 	ft_putstr_fd("usage: ./fractol NAME\nyou can use :\n", 2);
 	ft_putstr_fd("\t*) Mandelbrot", 2);
-	ft_putstr_fd("\t[usage: ./fractol Mandelbrot]\n", 2);
+	ft_putstr_fd("\t[usage: ./fractol mandelbrot]\n", 2);
 	ft_putstr_fd("\t*) Julia", 2);
-	ft_putstr_fd("\t[usage: ./fractol Julia x y]\n", 2);
+	ft_putstr_fd("\t[usage: ./fractol julia]\n", 2);
 	exit(1);
 }
 

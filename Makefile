@@ -6,7 +6,7 @@
 #    By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/20 14:34:23 by houmanso          #+#    #+#              #
-#    Updated: 2023/03/01 23:30:01 by houmanso         ###   ########.fr        #
+#    Updated: 2023/03/03 15:14:10 by houmanso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,9 +31,9 @@ B_OBJ = ${B_SRC:.c=.o}
 NAME = fractol
 B_NAME = fractol_bonus
 
-all: ${NAME}
+all: libft ${NAME}
 
-${NAME} : libft ${OBJ}
+${NAME} : ${OBJ}
 	cc ${CFLAGS} ./libft/libft.a ${OBJ} -lmlx ${FRAM} -o ${NAME}
 
 %.o : %.c 
@@ -44,14 +44,15 @@ libft :
 
 clean :
 	make -C ./libft clean
-	rm -f ${OBJ}
+	rm -f ${OBJ} ${B_OBJ}
 	
 fclean : clean
 	make -C ./libft fclean
 	rm -f ${NAME} ${B_NAME}
 
 bonus: libft ${B_OBJ} fractol_bonus.h
-	cc ${CFLAGS} ./libft/libft.a ${B_OBJ} -lmlx ${FRAM} -o ${B_NAME}
+	cc ${CFLAGS} ./libft/libft.a ${B_OBJ} -lmlx -lm ${FRAM} -o ${B_NAME}
 re : fclean all
+	make -C libft re
 
 .PHONY : all clean fclean re bonus libft
