@@ -6,7 +6,7 @@
 /*   By: houmanso <houmanso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 20:45:47 by houmanso          #+#    #+#             */
-/*   Updated: 2023/03/01 18:05:48 by houmanso         ###   ########.fr       */
+/*   Updated: 2023/03/03 15:27:35 by houmanso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	julia_mouse_extra_events(int code, int x, int y, t_mlx_data *data)
 	}
 	else if (code == 5)
 	{
+		data->max += 5;
 		temp_x = get_coord(x, WIDTH, data);
 		temp_y = get_coord(y, WIDTH, data);
 		data->zoom /= 1.2;
